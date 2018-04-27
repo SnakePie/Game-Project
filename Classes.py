@@ -16,7 +16,6 @@ class Player(Entity):
         self.OnGround = True
         self.Jumping = False
         self.image = pygame.image.load('p1_stand.png')
-        self.image = pygame.transform.scale(self.image, (70, 70))
         self.rect = self.image.get_rect(topleft=(self.pos[0], self.pos[1]))
         self.dt = 0
         self.gravity = 5
@@ -36,7 +35,7 @@ class Player(Entity):
                 if self.y_vel > 0 and self.rect.bottom + sprite.rect.height >= sprite.rect.top:
                     self.OnGround = True
                     self.Jumping = False
-                    self.y_vel = 0
+                    self.y_vel = 8
                     self.dt = 0
                     self.rect.bottom = sprite.rect.top
                 elif self.y_vel > 0:
@@ -59,18 +58,19 @@ class Player(Entity):
             if isinstance(sprite, Box):
                 if self.x_vel > 0 and self.rect.right + sprite.rect.width >= sprite.rect.left:
                     self.rect.right = sprite.rect.left
-                if self.x_vel < 0 and self.rect.left - sprite.rect.width <= sprite.rect.right:
+                elif self.x_vel < 0 and self.rect.left - sprite.rect.width <= sprite.rect.right:
                     self.rect.left = sprite.rect.right
                 if self.x_vel > 0:
                     self.rect.right = sprite.rect.left
                 elif self.x_vel < 0:
                     self.rect.left = sprite.rect.right
+                self.x_vel = 0
 
     def move_right(self):
-        self.x_vel = 7
+        self.x_vel = 5
 
     def move_left(self):
-        self.x_vel = -7
+        self.x_vel = -5
 
     def jump(self):
         self.y_vel = 0
