@@ -10,10 +10,8 @@ pygame.display.set_caption('Test')
 FPSCLOCK = pygame.time.Clock()
 FPS = 60
 
-player = Player(0, WINHEIGHT - 162)
-
-
 Entities = pygame.sprite.Group()
+player = Player(0, WINHEIGHT - 162, Entities)
 Entities.add(player)
 
 
@@ -38,9 +36,8 @@ def draw():
         for y in range(0, 1400, 70):
             DISPLAYSURF.blit(bg, (x, y))
 
-    player.move()
+    player.update()
     player.apply_gravity()
-    player.collide(Entities)
 
     for e in Entities:
         DISPLAYSURF.blit(e.image, e.rect)
