@@ -3,6 +3,7 @@ Using Python 3+ and Pygame
 2D Platformer/Sidescroller
 # TO-DO
 # Sidescrolling
+27/04/2018 - added scrolling/camera, will need a bit of optimization
 # Assets
 
 # Level Class
