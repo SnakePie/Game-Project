@@ -11,8 +11,25 @@ FPSCLOCK = pygame.time.Clock()
 FPS = 60
 
 Entities = pygame.sprite.Group()
-player = Player(0, WINHEIGHT - 162, Entities)
+player = Player(0, WINHEIGHT - 200, Entities)
 Entities.add(player)
+
+
+def camera(obj):
+    global Entities
+
+    for entity in Entities:
+        if obj.rect.x >= 700/2:
+            obj.rect.x = 700/2
+        if entity == obj:
+            continue
+        if obj.pos[0] >= 350 and obj.x_vel < 0:
+            obj.rect.x = 350
+
+        entity.pos[0] = entity.pos[0] - obj.x_vel
+        # entity.pos[1] = entity.pos[1] + obj.pos[1]
+        entity.rect.left = entity.pos[0]
+        # entity.rect.top = entity.pos[1]
 
 
 def init_surface():
@@ -22,7 +39,7 @@ def init_surface():
         Entities.add(f)
         DISPLAYSURF.blit(f.image, f.rect)
         x += 70
-    box = Box(350,WINHEIGHT - 140)
+    box = Box(350, WINHEIGHT - 140)
     Entities.add(box)
     DISPLAYSURF.blit(box.image, box.rect)
 
@@ -30,7 +47,6 @@ def init_surface():
 
 
 def draw():
-
     bg = pygame.Surface((70, 70))
     for x in range(0, 1400, 70):
         for y in range(0, 1400, 70):
@@ -38,9 +54,11 @@ def draw():
 
     player.update()
     player.apply_gravity()
+    camera(player)
 
-    for e in Entities:
-        DISPLAYSURF.blit(e.image, e.rect)
+
+    for E in Entities:
+        DISPLAYSURF.blit(E.image, E.rect)
 
 
 def keydown(event):
